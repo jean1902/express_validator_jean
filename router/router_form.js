@@ -9,7 +9,7 @@ router.get("/",(req,res)=>{
     res.render("../views/formulaire" ,{alert:{}})
 })
 
-router.post("/",(req,res)=>{
+router.post("/",[
 
     body('nom')
     .not()
@@ -48,25 +48,29 @@ router.post("/",(req,res)=>{
     .withMessage('Nom ne peut pas être vide')
     .isLength({min:5 , max:10})
     .withMessage('Minimun 5 caractères obligatoires')
-        ,
+],
+     (req, res) => {
+     
+   // Finds the validation errors in this request and wraps them in an object with handy functions
+   const errors = validationResult(req);
+   if (!errors.isEmpty()) {
+    //  return res.status(400).json({ alert: errors.array() });
+     const boom =errors.mapped();
+     console.log(boom)
+     res.render('formulaire',{alert:boom})
+   //   res.render('inscription',{errors:errors})
+   }
+
+   // formulaire.create({
+   //   nom: req.body.username,
+   //   password: req.body.password,
+   // }).then(formulaire_user => res.json(formulaire_user));
+        
+     }
+        
+     
    
-    (req, res) => {
-        // Finds the validation errors in this request and wraps them in an object with handy functions
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-          return res.status(400).json({ alert: errors.array() });
-          const boom =errors.mapped();
-          console.log()
-          res.render('formulaire',{alert:boom})
-        //   res.render('inscription',{errors:errors})
-        }
-    
-        formulaire.create({
-          nom: req.body.username,
-          password: req.body.password,
-        }).then(formulaire_user => res.json(formulaire_user));
-      }
  
-})
+)
 
 module.exports =router;

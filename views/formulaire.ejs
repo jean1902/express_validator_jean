@@ -15,7 +15,7 @@
             <input type="text" id="nom" placeholder="veuiller entreer votr nom" name="nom">
         </div>
         <%   if (alert.nom)  { %>
-            <div class="validation"><%=errors.nom.msg%></div>
+            <div class="validation"><%=alert.nom.msg %></div>
             <% } %>      
 
         <div class="form-group form_group_send_form">
@@ -26,6 +26,9 @@
             <label for="email" class="label">Email</label>
             <input type="text"  id="email" placeholder="veuiller entreer votre email" name="email">
         </div>
+        <%   if (alert.nom)  { %>
+            <div class="validation"><%=alert.email.msg %></div>
+            <% } %>  
         <div class="form-group form_group_send_form">
             <label for="contact" class="label">Contact</label>
             <input type="number" id="contact" placeholder="veuiller entreer votre Numero" name="contact">
